@@ -5,20 +5,11 @@ import UserAction from "./UserAction";
 import Login from "./modals/Login";
 import Regsiter from "./modals/Register";
 import useAuth from "../hooks/useAuth";
-import { useQuery } from "@tanstack/react-query";
-import useAxiosPrivate from "@/hooks/useAxiosPrivate";
-import { UserType } from "@/types";
+import useUser from "@/hooks/api/useUser";
 
 function Navbar() {
   const { auth } = useAuth();
-  const axiosPrivate = useAxiosPrivate();
-
-  const { data, isLoading } = useQuery({
-    queryKey: ["user"],
-    queryFn: () => axiosPrivate.get<unknown, { data: UserType }>("/user"),
-    staleTime: Infinity,
-    gcTime: Infinity,
-  });
+  const { data, isLoading } = useUser();
 
   return (
     <nav className="flex justify-between items-center h-[5rem] mb-20">
